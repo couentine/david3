@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Where's David?</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="assets/images/if_Saint_Patricks_Day_Holiday-01_1746610.png"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+</head>
+<body background=''>
+
+<!--persistent header-->
+
+<header class="container-fluid mb-0  pl-3" style="display: none">
+  <div class="row justify-content-between mt-2">
+    <div class="col-auto"></div>
+    <div class="text-center col color-text">
+      <h1>Where's David?</h1>
+    </div>
+    <div class="col-auto m-auto p-2">
+      <a href="#menu-toggle" class="btn btn-secondary mr-4 p-2 " id="menu-toggle">Menu</a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+      <div id="role" class="col text-center">
+        <h2 class="">Ale</h2>
+      </div>
+    </div>
+</header>
+
+
+<section class="container" id="sign-in" style="display: none">
+
+  <!--Title jumbo-->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="row justify-content-center mt-5">
+        <div class="text-center col-auto text-dark p-3 sign" id="sign-in-banner-1">
+          <h1>Where's David?</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto p-3 text-center text-dark mt-5 sign" id="sign-in-banner-2">
+          <h2 class="welcome text-center text-dark">Log in to Find Out</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--sign in plane-->
+  <div class="row justify-content-center mt-5 sign" id="sign-in-form">
+    <form class="form-group card col-auto border-0">
+      <div class="row justify-content-center p-2">
+        <div class="col-auto text-right h2">
+          <p>Username:</p>
+        </div>
+        <div class="col-auto h2">
+          <input class="m-auto " title="username" type="text" placeholder="notDavid404" id="username"/>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</section>
+
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li>
+        <a href="#" class="sideLink" data-dir="home">Home</a>
+      </li>
+      <li>
+        <a href="#" class="sideLink" data-dir="about">About</a>
+      </li>
+      <li>
+        <a href="#" class="sideLink" data-dir="favorites">Favorites</a>
+      </li>
+      <li>
+        <a href="#" class="sideLink" data-dir="search">Search</a>
+      </li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div class="p-3 p-md-0" id="page-content-wrapper">
+
+    <!--im the map, im the map, im the map, im the map-->
+    <section class="container-fluid" id="map-modal">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-7 card p-3" id="map-card">
+          <div class="row justify-content-between p-3">
+            <div class="col-11  p-2 card-title text-left">
+              <h2 class="color-text pl-3 pl-md-0" id="map-title"></h2>
+            </div>
+            <div class="col-1  card-title">
+              <div class="btn btn-secondary position-relative float-right color-text pt-0 pb-0 mr-4 mr-md-0 pl-md-3 pr-md-3" id="exit-button"><h2>X</h2></div>
+            </div>
+          </div>
+          <div class="row  mt-3 justify-content-center p-2">
+            <div class="col-12 col-md-auto card body p-0 p-md-3" id="map">
+              <div class="my-leaflet-map-container bg-transparent" id="mapId" style="height: 400px; width: 400px"></div>
+            </div>
+            <div class="col-12 col-md-auto card-body">
+              <ul class="list-group m-auto text-dark" id="mod-list" style="width: max-content;">
+                <li class="mt-3 list-group-item" id="mod-city">dummyyyyyyyyyyyyyy</li>
+                <li class="mt-3 list-group-item" id="mod-street">dummy</li>
+                <li class="mt-3 list-group-item" id="mod-phone">dummy</li>
+                <li class="mt-3 list-group-item" id="mod-rating">dummy</li>
+                <li class="mt-3 list-group-item"><a target="_blank" id="mod-website"></a></li>
+                <li class="mt-3 list-group-item  text-center" id="mod-fav">Favorite</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Content -->
+    <section class="container" id="search">
+      <div class="row justify-content-center">
+        <div class="col-12 welcome text-center color-text">
+          <h1>Search Brews</h1>
+        </div>
+      </div>
+      <form class="row mt-3 card p-3 mb-5 mb-md-0" id="search-form">
+        <div class="card-body col-12">
+          <div class="row">
+            <div class=" col-12 col-md-6">
+              <div class="row justify-content-center">
+                <label class="col-12" for="city"><h3>City</h3></label>
+              </div>
+              <div class="row">
+                <input class="col-12 contact-input" required id="city" type="text" placeholder="San Francisco"
+                       autocomplete="shipping-locality"/>
+              </div>
+            </div>
+            <div class="col-12 col-md-2">
+              <div class="row">
+                <label class="col-12" for="state"><h3>State</h3></label>
+              </div>
+              <div class="row">
+                <input class="col-12 contact-input" required id="state" type="text" placeholder="CA"
+                       autocomplete="shipping-region"/>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="row">
+                <label class="col-12" for="state"> </label>
+              </div>
+              <div class="row">
+                <input class="col-12" type="submit" id="searchbutton" value="search"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row justify-content-center mt-5">
+        <div class="col-12 results" id="search-results">
+
+        </div>
+      </div>
+    </section>
+
+    <!--Home section-->
+
+    <section class="container" id="home" style="display: none">
+      <div class="row justify-content-center mt-5">
+        <div class="col-auto text-center">
+          <h1 class="welcome color-text" id="mod-text">Nearby Brewery Results!</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto text-center">
+          <h2 class="welcome color-text" id="mod-state"></h2>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <div class="col-12 results" id="home-results">
+
+        </div>
+      </div>
+
+
+    </section>
+
+    <!--About page-->
+    <section class="container w-100" id="about">
+
+      <div class="row justify-content-center">
+        <div class="col-auto text-center">
+          <h1>About Us</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto text-center">
+          <img id="picture" src="assets/images/youngpeople.jpg">
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-6 text-left">
+          <p class="container"> We were inspired by David missing class a couple Saturdays ago due to a hangover, and we
+            took it upon ourselves to
+            make
+            the world a better place by giving people the option to feel a good buzz or get chocolate wasted by visiting
+            the breweries in the area
+            of
+            their choice.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-6 text-left">
+          <div id="contact-box">
+
+            <!-- Contact section -->
+            <h3>Contact Us</h3>
+
+            <form name="htmlform" method="post" action="html_form_send.php">
+              <table width="550px">
+                </tr>
+                <tr>
+                  <td valign="top">
+                    <label for="first_name">First Name</label>
+                  </td>
+                  <td valign="top">
+                    <input type="text" name="first_name"  id="first_name" maxlength="50" size="30">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td valign="top">
+                    <label for="last_name">Last Name</label>
+                  </td>
+                  <td valign="top">
+                    <input type="text" name="last_name" id="last_name" maxlength="50" size="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top">
+                    <label for="email">Email Adress</label>
+                  </td>
+                  <td valign="top">
+                    <input type="text" name="email" id="email" maxlength="80" size="30">
+                  </td>
+
+                </tr>
+                <tr>
+                  <td valign="top">
+                    <label for="telephone">Phone Number</label>
+                  </td>
+                  <td valign="top">
+                    <input type="text" name="telephone" id="telephone" maxlength="30" size="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top">
+                    <label for="comments">Your Message</label>
+                  </td>
+                  <td valign="top">
+                    <textarea name="comments"  id="comments" maxlength="1000" cols="25" rows="6"></textarea>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td colspan="2" style="text-align:center">
+                    <input type="submit" value="Submit">
+                  </td>
+
+                </tr>
+
+              </table>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Favorites Content -->
+    <section class="container" id="favorites">
+      <h1 class="welcome text-center color-text">Favorites!</h1>
+      <img src="assets/images/davidshead.png" class="auth-image" alt="placeholder">
+      <div class="row justify-content-center mt-5">
+        <div class="col-12 results" id="favorites-results">
+
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+  <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+        integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+        crossorigin=""></script>
+<script src="assets/javascript/logic.js"></script>
+</body>
+</html>
